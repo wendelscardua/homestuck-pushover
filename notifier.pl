@@ -81,7 +81,7 @@ while(1) {
 				}
 				if ($response->code >= 500 && $response->code <= 599) {
 					print "Failed to post: " , $response->code , " : " , $response->message, " - will retry in 10s\n";
-					sleep(5);
+					sleep(10);
 					next;
 				}
 				last;
