@@ -13,11 +13,6 @@ open my $key_handle, '<', $key_file or die $!;
 my $key = <$key_handle>; chomp $key;
 close $key_handle;
 
-
-open my $users_handle, '<', $users_file or die $!;
-my @users = <$users_handle>; chomp @users;
-close $users_handle;
-
 my $pushover_url = 'https://api.pushover.net/1/messages.json';
 
 my $mspa_url = 'http://www.mspaintadventures.com/rss/rss.xml';
@@ -37,6 +32,10 @@ if (-e $save_state_file) {
 }
 
 while(1) {
+	# load user list every time, so it updates on the fly
+	open my $users_handle, '<', $users_file or die $!;
+	my @users = <$users_handle>; chomp @users;
+	close $users_handle;
 
 	my $response = $browser->get($mspa_url);
 
